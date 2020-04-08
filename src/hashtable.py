@@ -17,6 +17,7 @@ class HashTable:
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
+        self.size = 0
 
     def _hash(self, key):
         """
@@ -91,15 +92,48 @@ class HashTable:
 
         Fill this in.
         """
-        # Get the index from hashmod
+        # # Get the index from hashmod
+        # index = self._hash_mod(key)
+        # # Check if a pair exists in the bucket with matching keys
+        # if self.storage[index] is not None and self.storage[index].key == key:
+        #     # If so, return the value
+        #     return self.storage[index].value
+        # else:
+        #     # Else return None
+        #     return None
+
+        # index = self._hash_mod(key)
+
+        # node = self.storage[index]
+
+        # prev = None
+
+        # while node is not None and node.key != key:
+        #     prev = node
+        #     node = node.next
+
+        # if node is None:
+        #     return
+        # else:
+        #     self.size -= 1
+        #     result = node.value
+
+        #     if prev is None:
+        #         node = None
+        #     else:
+        #         prev.next = prev.next.next
+        #     return result
+
         index = self._hash_mod(key)
-        # Check if a pair exists in the bucket with matching keys
-        if self.storage[index] is not None and self.storage[index].key == key:
-            # If so, return the value
-            return self.storage[index].value
-        else:
-            # Else return None
+
+        node = self.storage[index]
+
+        while node is not None and node.key != key:
+            node = node.next
+        if node is None:
             return None
+        else:
+            return node.value
 
     def resize(self):
         """
